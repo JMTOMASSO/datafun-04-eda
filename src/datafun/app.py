@@ -157,7 +157,6 @@ def main() -> None:
         log=LOG,
     )
 
-
     LOG.info("-------------------------------")
     LOG.info("02. INSPECT the data.")
     LOG.info("-------------------------------")
@@ -294,7 +293,6 @@ def main() -> None:
             f"Species: {species}, Count: {len(species_df)}, "
             f"Correlation: {species_correlation:.3f}"
         )
-
 
     # Call the imported function show_numeric_relationship()
     # to visualize the relationship between two numeric variables.
