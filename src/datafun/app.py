@@ -66,6 +66,7 @@ from eda_vizkit import (
 )
 import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
 
 from datafun.utils_eda import (
     build_data_dictionary,
@@ -155,6 +156,7 @@ def main() -> None:
         dataset_name=DATASET_NAME,
         log=LOG,
     )
+
 
     LOG.info("-------------------------------")
     LOG.info("02. INSPECT the data.")
@@ -276,6 +278,24 @@ def main() -> None:
 
     LOG.info(f"Correlation between {X_COLUMN} and {Y_COLUMN}: {correlation:.3f}")
 
+    species_names = df["species"].unique()
+
+    for species in species_names:
+        species_df = df[df["species"] == species]
+
+        species_correlation = get_correlation(
+            df=species_df,
+            x=X_COLUMN,
+            y=Y_COLUMN,
+            log=LOG,
+        )
+
+        LOG.info(
+            f"Species: {species}, Count: {len(species_df)}, "
+            f"Correlation: {species_correlation:.3f}"
+        )
+
+
     # Call the imported function show_numeric_relationship()
     # to visualize the relationship between two numeric variables.
     # Pass in the df, the x column, the y column.
@@ -296,6 +316,22 @@ def main() -> None:
         CHART_DIR / "one-relationship.png",
     )
 
+    species_ax = sns.scatterplot(
+        data=df,
+        x=X_COLUMN,
+        y=Y_COLUMN,
+        hue="species",
+    )
+
+    species_ax.set_title("Penguin Bill Length vs. Bill Depth by Species")
+    species_ax.set_xlabel("Bill Length (mm)")
+    species_ax.set_ylabel("Bill Depth (mm)")
+
+    save_chart(
+        species_ax,
+        CHART_DIR / "species-relationship.png",
+    )
+
     LOG.info("-------------------------------")
     LOG.info("07. SUMMARIZE what you found.")
     LOG.info("-------------------------------")
@@ -310,10 +346,10 @@ def main() -> None:
     Some observations (rows) are complete, but some are missing values.
 
     I reviewed the relationship between:
-    Bill length vs. bill depth
-    and it shows a weak negative linear correlation when all penguins are observed together.
+    Bill length vs. bill depth and it shows a weak negative linear correlation when all penguins
+    are observed together. After separating the species, the correlation is stronger for each species individually.
 
-    Based on this EDA, I would next like to isolate individual species of penguins.
+    Based on this EDA, I would next like to isolate individual sex of penguins within each species.
     Marimo (reactive notebook cells) might be a good choice
     for additional exploration.
     """)
