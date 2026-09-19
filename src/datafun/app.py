@@ -1,6 +1,6 @@
 """src/datafun/app.py - Project script (example).
 
-Author: Denise Case
+Author: Denise Case & Joseph Michael Tomasso
 Date: 2026-08
 
 RUN:
@@ -125,8 +125,8 @@ CATEGORICAL_COLUMNS: Final[list[str]] = [
 
 # === CHOOSE ONE RELATIONSHIP TO EXPLORE ===
 
-X_COLUMN: Final[str] = "flipper_length_mm"
-Y_COLUMN: Final[str] = "body_mass_g"
+X_COLUMN: Final[str] = "bill_length_mm"
+Y_COLUMN: Final[str] = "bill_depth_mm"
 
 
 # === DEFINE THE MAIN FUNCTION ===
@@ -287,9 +287,9 @@ def main() -> None:
     )
 
     # CUSTOM: Analyst must customize the Matplotlib Axes object with a title and axis labels.
-    relationship_ax.set_title("Penguin Flipper Length vs. Body Mass")
-    relationship_ax.set_xlabel("Flipper Length (mm)")
-    relationship_ax.set_ylabel("Body Mass (g)")
+    relationship_ax.set_title("Penguin Bill Length vs. Bill Depth")
+    relationship_ax.set_xlabel("Bill Length (mm)")
+    relationship_ax.set_ylabel("Bill Depth (mm)")
 
     save_chart(
         relationship_ax,
@@ -310,11 +310,10 @@ def main() -> None:
     Some observations (rows) are complete, but some are missing values.
 
     I reviewed the relationship between:
-    Flipper length vs. body mass
-    and it shows a positive relationship.
+    Bill length vs. bill depth
+    and it shows a weak negative linear correlation when all penguins are observed together.
 
-    Based on this EDA, I would next like to review additional
-    relationships between other numeric variables.
+    Based on this EDA, I would next like to isolate individual species of penguins.
     Marimo (reactive notebook cells) might be a good choice
     for additional exploration.
     """)
